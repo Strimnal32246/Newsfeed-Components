@@ -33,48 +33,36 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
 
 */
-function MenuComponent(items) {
-  menu = document.createElement("div");
-  menu.classList.add("menu");
+window.addEventListener("load", e => {
+  const menuButton = document.querySelector(".header");
 
-  let ul = document.createElement("ul");
+  menuButton.append(makeComponent(menuItems));
 
-  let students = document.createElement("li");
-  students.textContent = menuItems[0];
+  function makeComponent(arr) {
+    // new elemets //
+    const menuDiv = document.createElement("div");
+    const ulItem = document.createElement("ul");
 
-  let faculty = document.createElement("li");
-  faculty.textContent = menuItems[1];
+    // structure //
+    menuDiv.appendChild(ulItem);
 
-  let whatsnew = document.createElement("li");
-  whatsnew.textContent = menuItems[2];
+    arr.forEach(element => {
+      const liItem = document.createElement("li");
+      ulItem.appendChild(liItem);
+      liItem.textContent = element;
+      console.log(element);
+    });
 
-  let techtrends = document.createElement("li");
-  techtrends.textContent = menuItems[3];
+    // set content //
+    menuDiv.classList.add("menu");
 
-  let music = document.createElement("li");
-  music.textContent = menuItems[4];
+    // liItem.textContent = object
+    //
+    const menuButton = document.querySelector(".menu-button");
+    menuButton.addEventListener("click", () => {
+      menuDiv.classList.toggle("menu--open");
+    });
 
-  let logout = document.createElement("li");
-  logout.textContent = menuItems[5];
-
-  ul.appendChild(students);
-  ul.appendChild(faculty);
-  ul.appendChild(whatsnew);
-  ul.appendChild(techtrends);
-  ul.appendChild(music);
-  ul.appendChild(logout);
-  menu.prepend(ul);
-
-  return menu;
-}
-
-let newMenuComponent = MenuComponent(menuItems);
-
-let menuButton = document.querySelector(".menu-button");
-
-menuButton.addEventListener("click", event => {
-  newMenuComponent.classList.toogle("menu--open");
+    return menuDiv;
+  }
 });
-
-let headerDiv = document.querySelector(".header");
-headerDiv.prepend(newMenuComponent);

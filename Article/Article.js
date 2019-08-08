@@ -113,39 +113,58 @@ const data = [
 
 */
 
-function componentCreater(obj) {
-  let article = document.createElement("div");
-  article.classList.add("article");
-
-  let h2 = document.createElement("h2");
-  h2.textContent = obj.title;
-
-  let date = document.createElement("p");
-  date.classList.add("date");
-  date.textContent = obj.date;
-
-  let Par1 = document.createElement("p");
-  Par1.textContent = obj.firstParagraph;
-
-  let Par2 = document.createElement("p");
-  Par2.textContent = obj.secondParagraph;
-
-  let Par3 = document.createElement("p");
-  Par3.textContent = obj.thirdParagraph;
-
-  let span = document.createElement("span");
-  span.classList.add("expandButton");
-  span.textContent = "Toggle";
-  span.addEventListener("click", event => {
-    article.classList.toggle("article-open");
+window.addEventListener("load", e => {
+  const articles = document.querySelector(".articles");
+  data.forEach(element => {
+    articles.appendChild(
+      createArticle(
+        element.title,
+        element.date,
+        element.firstParagraph,
+        element.secondParagraph,
+        element.thirdParagraph
+      )
+    );
   });
 
-  article.appendChild(h2);
-  article.appendChild(date);
-  article.appendChild(Par1);
-  article.appendChild(Par2);
-  article.appendChild(Par3);
-  article.appendChild(span);
-
-  return article;
-}
+  function createArticle(
+    title,
+    date,
+    firstParagraph,
+    secondParagraph,
+    thirdParagraph
+  ) {
+    // new elements //
+    const articleDiv = document.createElement("div");
+    const title1 = document.createElement("h2");
+    const date1 = document.createElement("p");
+    const paragraphOne = document.createElement("p");
+    const paragraphTwo = document.createElement("p");
+    const paragraphThree = document.createElement("p");
+    const buttonSpan = document.createElement("span");
+    // Structure of Elements //
+    articleDiv.appendChild(title1);
+    articleDiv.appendChild(date1);
+    articleDiv.appendChild(paragraphOne);
+    articleDiv.appendChild(paragraphTwo);
+    articleDiv.appendChild(paragraphThree);
+    articleDiv.appendChild(buttonSpan);
+    // class names //
+    articleDiv.classList.add("article");
+    date1.classList.add("date");
+    buttonSpan.classList.add("expandButton");
+    // set content //
+    title1.textContent = title;
+    date1.textContent = date;
+    paragraphOne.textContent = firstParagraph;
+    paragraphTwo.textContent = secondParagraph;
+    paragraphThree.textContent = thirdParagraph;
+    buttonSpan.textContent = "Click for more";
+    //event listeners //
+    buttonSpan.addEventListener("click", e => {
+      articleDiv.classList.toggle("article-open");
+    });
+    console.log(buttonSpan);
+    return articleDiv;
+  }
+});

@@ -115,6 +115,7 @@ const data = [
 
 window.addEventListener("load", e => {
   const articles = document.querySelector(".articles");
+
   data.forEach(element => {
     articles.appendChild(
       createArticle(

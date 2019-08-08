@@ -1,12 +1,12 @@
 /* This is the data we will be using, study it but don't change anything, yet. */
 
 let menuItems = [
-  'Students',
-  'Faculty',
+  "Students",
+  "Faculty",
   "What's New",
-  'Tech Trends',
-  'Music',
-  'Log Out'
+  "Tech Trends",
+  "Music",
+  "Log Out"
 ];
 
 /*
@@ -33,21 +33,48 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
 
 */
-const toggleMenu = () => {
-  // Toggle the "menu--open" class on your menu refence.
-  menu.classList.toggle("menu--open");
-};
+function MenuComponent(items) {
+  menu = document.createElement("div");
+  menu.classList.add("menu");
 
-// Start Here: Create a reference to the ".menu" class
-const menu = document.querySelector(".menu");
+  let ul = document.createElement("ul");
 
-// create a reference to the ".menu-button" class
-const menuButton = document.querySelector(".menu-button");
+  let students = document.createElement("li");
+  students.textContent = menuItems[0];
 
-// Using your menuButton reference, add a click handler that calls toggleMenu
-menuButton.addEventListener("click", () => {
-  toggleMenu();
+  let faculty = document.createElement("li");
+  faculty.textContent = menuItems[1];
+
+  let whatsnew = document.createElement("li");
+  whatsnew.textContent = menuItems[2];
+
+  let techtrends = document.createElement("li");
+  techtrends.textContent = menuItems[3];
+
+  let music = document.createElement("li");
+  music.textContent = menuItems[4];
+
+  let logout = document.createElement("li");
+  logout.textContent = menuItems[5];
+
+  ul.appendChild(students);
+  ul.appendChild(faculty);
+  ul.appendChild(whatsnew);
+  ul.appendChild(techtrends);
+  ul.appendChild(music);
+  ul.appendChild(logout);
+  menu.prepend(ul);
+
+  return menu;
+}
+
+let newMenuComponent = MenuComponent(menuItems);
+
+let menuButton = document.querySelector(".menu-button");
+
+menuButton.addEventListener("click", event => {
+  newMenuComponent.classList.toogle("menu--open");
 });
 
-TweenMax.from(".menu", 2, { x: -600, opacity: 0 });
-TweenMax.staggerFrom(".menu li", 1, { x: -600, opacity: 0 }, 0.2);
+let headerDiv = document.querySelector(".header");
+headerDiv.prepend(newMenuComponent);
